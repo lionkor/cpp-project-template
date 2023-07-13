@@ -25,7 +25,7 @@ set(PRJ_MAIN src/main.cpp)
 # set the source file containing the test's main
 set(PRJ_TEST_MAIN tests/test_main.cpp)
 # set include paths not part of libraries
-set(PRJ_INCLUDE_DIRS )
+set(PRJ_INCLUDE_DIRS src)
 # set compile features (e.g. standard version)
 set(PRJ_COMPILE_FEATURES cxx_std_20)
 # set #defines (test enable/disable not included here)
@@ -83,6 +83,7 @@ set(PRJ_DEFINITIONS ${PRJ_DEFINITIONS}
 
 add_executable(${PROJECT_NAME} ${PRJ_HEADERS} ${PRJ_SOURCES} ${PRJ_MAIN})
 target_link_libraries(${PROJECT_NAME} ${PRJ_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${PRJ_INCLUDE_DIRS})
 target_compile_features(${PROJECT_NAME} PRIVATE ${PRJ_COMPILE_FEATURES})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRJ_DEFINITIONS} ${PRJ_WARNINGS}
     DOCTEST_CONFIG_DISABLE # disables all test code in the final executable
@@ -95,6 +96,7 @@ if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
     message(STATUS "Unit tests are enabled and will be built as '${PROJECT_NAME}-tests'")
     add_executable(${PROJECT_NAME}-tests ${PRJ_HEADERS} ${PRJ_SOURCES} ${PRJ_TEST_MAIN})
     target_link_libraries(${PROJECT_NAME}-tests ${PRJ_LIBRARIES})
+    target_include_directories(${PROJECT_NAME}-tests PRIVATE ${PRJ_INCLUDE_DIRS})
     target_compile_features(${PROJECT_NAME}-tests PRIVATE ${PRJ_COMPILE_FEATURES})
     target_compile_definitions(${PROJECT_NAME}-tests PRIVATE ${PRJ_DEFINITIONS} ${PRJ_WARNINGS})
     set_project_warnings(${PROJECT_NAME}-tests)
