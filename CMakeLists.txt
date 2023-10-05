@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-include(cmake/Vcpkg.cmake) # needs to happen before project()
-
 project(
     "MY_PROJECT" # replace this
     VERSION 0.1.0
